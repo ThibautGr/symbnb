@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos annonces{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-3">nos annonces</h1>
+        <div class="row">
+            {% for ad in allAds %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header text-center">
+                                {{ ad.rooms}} chambre, <strong>{{ ad.price}}€/jours</strong>
+                                <br>
+                                <smal>Pas encore noté</smal>
+                            </div>
+                            <img src="{{ ad.coverImage}}" alt="image de l'appartement"
+                                 style="height: 200px; width: 100%; display: block;"
+                            >
+                            <p class="card-text">{{ ad.introduction}}</p>
+                            <a href="#" class="card-link">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
