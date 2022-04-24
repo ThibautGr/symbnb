@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de : {{ user.fullName }}!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3 text-center">
+                <img src="{{ user.picture}}" class="avatar avatar-medium" alt="Avatar de {{ user.fullName }}">
+                <br>
+                <span class="badge badge-primary">
+                    {{ user.ads | length}} annonces
+                </span>
+            </div>
+            <div class="col-9">
+                <h1>
+                     {{ user.fullName }}
+                </h1>
+                {% if user is same as(app.user) %}
+                    <a class="dropdown-item" href="{{ path('profile') }}">Modifier mes informations</a>
+                    <a class="dropdown-item" href="{{ path('password') }}">Modifier mon mots de passe </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            {% for ad in user.ads %}
+                {% include 'ad/_ad.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

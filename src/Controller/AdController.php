@@ -44,7 +44,7 @@ class AdController extends AbstractController
                 $image->setAd($ad);
                 $emi->persist($image);
             }
-
+            $ad->setAuthor($this->getUser());
             $emi->persist($ad);
             $emi->flush();
             $this->addFlash('success',"l'annonce à bien été enregistrée !");

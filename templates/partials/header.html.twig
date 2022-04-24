@@ -1,11 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary container-fluid d-flex">
         <a class="navbar-brand" href="{{ url('homepage') }}">SymBnB</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ url('homepage') }}">Accueil
                         <span class="visually-hidden">(current)</span>
@@ -16,14 +15,33 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ url('ads_create') }}">créer une annonce
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                    {% if app.user %}
+                        <div class="dropdown show nav-item">
+                            <a class="nav-link dropdown-toggle"  role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Mon Profile
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('ads_create') }}">créer une annonce</a>
+                                <a class="dropdown-item"  href="{{ path('account_index') }}">Mes annonces</a>
+                                <a class="dropdown-item" href="{{ path('profile') }}">Modifier mes informations</a>
+                                <a class="dropdown-item" href="{{ path('password') }}">Modifier mon mots de passe </a>
+                                <a href="{{ path('account_logout') }}" class="nav-link">Déconnexion</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <li class="nav-bar">
+                            <a href="{{ path('account_login') }}" class="nav-link">Connexion</a>
+                        </li>
+                        <li class="nav-bar">
+                            <a href="{{ path('accounte_register') }}" class="nav-link">Incription</a>
+                        </li>
+                    {% endif %}
             </ul>
         </div>
-    </div>
+
 </nav>
 
 {% for label, messages in app.flashes %}

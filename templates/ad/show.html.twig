@@ -49,13 +49,23 @@
                     </a>
                 </div>
             </div>
-            <div class=" col-md-4 mb-3">
-                <img src="https://via.placeholder.com/150" alt="Avatar de Jaseph">
+            <div class="col">
+            {%  set a = ad.author %}
+            <div class="row mb-3 align-items-center">
+                <div class="col-3">
+                    <a href="{{ path('user_show', {'slug' : a.slug}) }}">
+                        <img src="{{ a.picture}}" class="avatar avatar-medium" alt="Avatar de Jaseph">
+                    </a>
+                </div>
                 <div class="col">
-                    <h3>Joseph Dupont</h3>
-                    <span class="badge  rounded-pill bg-light">3 annonces</span>
+                    <a href="{{ path('user_show', {'slug' : a.slug}) }}">
+                        <h3>{{ a.fullName }}</h3>
+                    </a>
+                    <span class="badge  rounded-pill bg-light">Nombre d'annonce : {{ a.ads | length }}</span>
                 </div>
             </div>
+            <p>{{ a.description | raw }}</p>
+                </div>
         </div>
     </div>
 
