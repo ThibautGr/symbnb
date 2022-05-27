@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Faite votre booking !{% endblock %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs4.min.css">
+    {{ parent() }}
+
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div id="priceDay" class="d-none">{{ ad.price }}</div>
+        <div class="d-none" id="allDayUsed">
+            {% for day in ad.notAvalibleDate %}
+                {{ day.format('d/m/Y') }}
+            {% endfor %}
+        </div>
+        <h1>Je book now</h1>
+        {{ form_start(form) }}
+        <div class="alert alert-light">
+            <h2> commencer par nous dire quelles sont les dates qui vous intéressent !</h2>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.startDate) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.endTime) }}
+                </div>
+            </div>
+            <div class="col">
+                <h2>Vous avez un commentaire</h2>
+                {{ form_row(form.comment) }}
+            </div>
+            <div class="col">
+                <h4><span id="amount">...</span>&euro;</h4>
+                <span id="days">0</span> nuits(s) à {{ ad.price }} / nuit
+            </div>
+        </div>
+
+
+
+        <button type="submit" class="btn-success btn">Réserver</button>
+        {{ form_end(form)  }}
+    </div>
+
+{% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('dataCalendar') }}
+        <script>
+
+        </script>
+    {% endblock %}

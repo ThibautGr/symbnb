@@ -1,0 +1,46 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %} Mes réservation {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Mes réservation : </h1>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Début</th>
+                <th scope="col">Fin</th>
+                <th scope="col">Montant</th>
+                <th scope="col">Annonce</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>
+                    {{ booking.id }}
+                </td>
+                    <td>
+                        {{ booking.startDate | date('d/m/Y') }}
+                    </td>
+                    <td>
+                        {{ booking.endTime | date('d/m/Y') }}
+                    </td>
+                    <td>
+                        {{ booking.amount | }} &euro;
+                    </td>
+                <td>
+                    <a target="_blank" href="{{ url('ads_show' , {'slug': booking.ad.slug }) }}"> {{ booking.ad.title  }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

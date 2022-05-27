@@ -24,3 +24,7 @@ div.ad-title h1, div.ad-title p{
     max-height: 64px;
     max-width: 64px;
 }
+
+.datepicker-cell .day .disabled{
+    color: firebrick !important;
+}

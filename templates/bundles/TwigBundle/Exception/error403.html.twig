@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Pas autorisé.
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="alert-danger">Oups ! Vous n'avez pas les droits!</h1>
+        <p class="alert-danger">
+            On a surment du mal vous renseigner ! Aucun soucis, VOus pourvez retourner à l'acceuil
+            ou voir nos dernière annconces ! ou contacter un adminstrateur
+            {{ exception.message }}
+        </p>
+        <a href="{{ path('homepage') }}" class="btn btn-secondary">Retour à l'acceuil</a>
+        <a href="{{ path('ads_index') }}" class="btn btn-secondary">Voir les annonces</a>
+    </div>
+{% endblock %}

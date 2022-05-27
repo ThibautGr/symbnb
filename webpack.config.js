@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('generateInput', './assets/generateInput.js')
+    .addEntry('dataCalendar', './assets/datacalenda.js')
     .addEntry('bootsswach', './assets/styles/bootstrap.min.css')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

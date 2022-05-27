@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Form\AdType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,21 +76,22 @@ class AdController extends AbstractController
 
     /**
      * @route( "/ads/{slug}/edit", name="edit_ads", methods={"GET","POST"})
+     * @Security ("is_granted('ROLE_USER') and user === ad.getAuthor()", statusCode=403, message = "vous n'est pas l'auteur(e) de cette annonce")
      */
     public function edit(
         AdRepository $ar,
         EntityManagerInterface $emi,
         string $slug,
-        Ad $a,
+        Ad $ad,
         Request $request
     ){
 
 
-        $form = $this->createForm(AdType::class,$a);
+        $form = $this->createForm(AdType::class,$ad);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $emi->persist($a);
+            $emi->persist($ad);
             $emi->flush();
             $this->addFlash('success','ad a bien été modifier');
             $this->redirectToRoute('ads_index');
@@ -97,6 +99,23 @@ class AdController extends AbstractController
         return $this->render('ad/edit.html.twig',[
                 "form"=>$form->createView()
         ]);
+    }
+
+    //function delete ad
+
+    /**
+     * @Route ("/ads/{slug}/delete", name="delete_ad")
+     * @Security ("is_granted('ROLE_USER') and user === ad.getAuthor()", statusCode=403 , message = "vous n'est pas l'auteur(e) de cette annonce")
+     * @param Ad $ad
+     */
+    public function delete(Ad $ad, EntityManagerInterface $emi){
+
+        $emi->remove($ad);
+        $emi->flush();
+
+        $this->addFlash('success',
+        "l'annonce ". $ad->getTitle()."à bien été supprimer");
+        return $this->redirectToRoute("ads_index");
     }
 
 

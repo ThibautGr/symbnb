@@ -11,9 +11,15 @@
                 <strong>{{ ad.rooms }} chambres </strong> pour <strong>{{ ad.price }}€</strong>
                 par nuit
             </p>
-            <h1 href="#" class="btn btn-primary">
+            <a href="{{ path('booking_create',{'slug': ad.slug}) }}" class="btn btn-primary">
                 Réserver
-            </h1>
+            </a>
+            {% if app.user and app.user == ad.author %}
+                <a href="{{ path('edit_ads',{'slug':ad.slug}) }}" class="btn btn-secondary">Édité l'annonce</a>
+                <a href="{{ path('delete_ad',{'slug':ad.slug}) }}" class="btn btn-danger"
+                onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{ ad.title}} ?`)"
+                >delete l'annonce</a>
+            {% endif %}
         </div>
     </div>
     <div class="container">

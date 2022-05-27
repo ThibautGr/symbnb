@@ -8,6 +8,7 @@ use App\Form\AccountType;
 use App\Form\RegistrationType;
 use App\Form\UpdatePwdType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,7 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/logout", name="account_logout")
+     * @IsGranted("USER_ROLE")
      * @return void
      */
     public function logout(){
@@ -77,6 +79,7 @@ class AccountController extends AbstractController
 
     /**
      * @route("/profile", name="profile")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function profile(
@@ -105,6 +108,7 @@ class AccountController extends AbstractController
 
     /**
      * @route("/password-update", name="password")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function updatePwd(
@@ -143,12 +147,27 @@ class AccountController extends AbstractController
 
     /**
      * @Route ("/account", name="account_index")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function myAccount() : Response
     {
         return $this->render('user/index.html.twig',[
             'user'=>$this->getUser()
+        ]);
+    }
+
+    /**
+     * display all booking of the users.
+     *
+     * @Route("/account/bookings", name="account_bookings")
+     *
+     * @return Response
+     */
+    public function bookings(){
+
+        return $this->render('account/bookings.html.twig',[
+            'bookings' => $this->getUser()->getBookings()
         ]);
     }
 }
