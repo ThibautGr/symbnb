@@ -15,9 +15,11 @@
                 <th scope="col">Fin</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Annonce</th>
+                <th scope="col">Avis</th>
             </tr>
             </thead>
             <tbody>
+            {% if bookings != null %}
             {% for booking in bookings %}
             <tr>
                 <td>
@@ -30,14 +32,25 @@
                         {{ booking.endTime | date('d/m/Y') }}
                     </td>
                     <td>
-                        {{ booking.amount | }} &euro;
+                        {{ booking.amount }} &euro;
                     </td>
                 <td>
                     <a target="_blank" href="{{ url('ads_show' , {'slug': booking.ad.slug }) }}"> {{ booking.ad.title  }}</a>
                 </td>
+                <td>
+                    {% set comment = booking.ad.commentFromAuthor(app.user) %}
+                    {% if comment is not null %}
+                        <strong>votre note</strong>
+                        {% include 'partials/rating.html.twig' with {'rating' : comment.rating } %}
+                    {% else %}
+                        <a href="{{ path('booking_show',{'id' :  booking.id}) }}#comment" class="btn btn-link">Noté des maintenant</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
-
+            {% else %}
+             <p>vous ne disposer d'aucune réservation pour le moment mais rendez-vous sur nos annonce pour changer cela ;)</p>
+            {% endif %}
 
             </tbody>
         </table>

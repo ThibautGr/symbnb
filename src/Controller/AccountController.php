@@ -161,7 +161,7 @@ class AccountController extends AbstractController
      * display all booking of the users.
      *
      * @Route("/account/bookings", name="account_bookings")
-     *
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function bookings(){

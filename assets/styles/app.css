@@ -28,3 +28,8 @@ div.ad-title h1, div.ad-title p{
 .datepicker-cell .day .disabled{
     color: firebrick !important;
 }
+
+
+span.rating i {
+    color : goldenrod;
+}

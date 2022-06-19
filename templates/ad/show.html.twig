@@ -55,6 +55,40 @@
                     </a>
                 </div>
             </div>
+
+            <hr>
+            <h2>comment :</h2>
+            {% if ad.comments %}
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">
+                        <div class="row align-item-center">
+                            <div class="col">
+                                Note globale donée par nos utilisateur
+                                <small>Cette moyenne est calculer sur {{ ad.comments | length}} avis</small>
+                            </div>
+                            <div class="col">
+                                {% include 'partials/rating.html.twig' with {'rating': ad.avgRattings}  %}
+                            </div>
+                        </div>
+                    </h4>
+                </div>
+                {% for comment in ad.comments %}
+                    <blockquote class="blockquote">
+                        <p class="mb-2">
+                            "{{ comment.content }}"
+                        </p>
+                        <footer class="blockquote-footer">de <cite title="Source Title">{{ comment.author.fullname()}} </cite> le {{ comment.createdAt |date("d-m-Y") }}</footer>
+                    </blockquote>
+                    <p> note donnée : <strong>{{ comment.rating }}</strong>
+                        {% include 'partials/rating.html.twig' with {'rating' : comment.rating } %}
+                    </p>
+
+
+                {% endfor %}
+            {% else %}
+            <p>cette annonce n'a pas encore de commentaire</p>
+            {%  endif %}
+
             <div class="col">
             {%  set a = ad.author %}
             <div class="row mb-3 align-items-center">

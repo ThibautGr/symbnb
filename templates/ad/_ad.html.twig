@@ -5,11 +5,14 @@
                     <div class="card-header text-center">
                         {{ ad.rooms}} chambre, <strong>{{ ad.price}}€/jours</strong>
                         <br>
+                        {% if ad.comments |length > 0 %}
+                            {% include 'partials/rating.html.twig' with {'rating' : ad.avgRattings} %}
+                            {% else %}
                         <smal>Pas encore noté</smal>
+                        {% endif %}
                     </div>
                     <img src="{{ ad.coverImage}}" alt="image de l'appartement"
-                         style="height: 200px; width: 100%; display: block;"
-                    >
+                         style="height: 200px; width: 100%; display: block;">
                     <p class="card-text">{{ ad.introduction}}</p>
                     <a href="{{ url  }}" class="card-link">En savoir plus</a>
                     {% if app.user and app.user == ad.author %}

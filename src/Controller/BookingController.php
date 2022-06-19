@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use App\Form\BookingFormType;
+use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -54,12 +56,30 @@ class BookingController extends AbstractController
      *
      * @Route("booking/{id}", name="booking_show")
      * @param Booking $booking
+     * @param Request $request
+     * @param EntityManagerInterface $emi
      * @return Response
      */
-    public function show(Booking $booking){
+    public function show(Booking $booking, Request $request, EntityManagerInterface $emi){
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() and $form->isValid())
+        {
+            $comment->setAd($booking->getAd());
+            $comment->setAuthor($this->getUser());
+
+            $emi->persist($comment);
+            $emi->flush();
+
+            $this->addFlash('success', 'Votre note et commentaire on bien été ajouter');
+        }
 
         return $this->render('booking/show.html.twig',[
-            'booking'=> $booking
+            'booking'=> $booking,
+                'form'=> $form->createView()
             ]
         );
     }

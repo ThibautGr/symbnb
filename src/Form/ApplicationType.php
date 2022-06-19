@@ -15,7 +15,7 @@ class ApplicationType extends AbstractType{
      */
     public function setLabelHolder(string $label, string $placeholder = null, $option = []) : array
     {
-        return array_merge([
+        return array_merge_recursive([
             'label' => $label,
             'attr'  => [
                 'placeholder' => $placeholder

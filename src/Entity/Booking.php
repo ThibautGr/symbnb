@@ -58,7 +58,7 @@ class Booking
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $comment;
+    private  $comment;
 
     /**
      * Callback

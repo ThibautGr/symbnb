@@ -21,7 +21,7 @@
         </div>
     {% endif %}
     <div class="row">
-        <div class="col"><div class="alert-light alert">
+        <div class="col-6"><div class="alert-light alert">
                 <h2>Détails</h2>
                 <dl class="row">
                     <dt class="col-md-4">Numéro</dt>
@@ -35,7 +35,7 @@
                     <dt class="col-md-4">Montant :</dt>
                     <dt class="col-md-8">{{ booking.amount }}€</dt>
                     <dt class="col-md-4">Commantaire :</dt>
-                    <dt class="col-md-8">{{ booking.comment }}</dt>
+                    <dt class="col-md-8">{{ booking.comment | default('Aucun') }}</dt>
                 </dl>
                 <hr>
                 <h2 class="alert-heading">
@@ -53,8 +53,37 @@
             </div>
             {{ hote.description|raw }}
             <a href="{{ path('user_show',{'slug': hote.slug}) }}" {{ hote.fullName }} class="btn btn-primary"> plus d'information sur {{ hote.firstName }}</a>
+
+            <div class="alert alert-light" id="comment">
+                <h2 class="alert-heading">
+                    votre avis compte !
+                </h2>
+
+                {% if date() > date(booking.endTime) %}
+                    {% set comment = booking.ad.commentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note</strong>
+                            {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+                        {% else %}
+                                {{ form_start(form) }}
+                                    {{ form_widget(form) }}
+                                <button type="submit" class="btn btn-success">
+                                    Confirmer
+                                </button>
+                                {{ form_end(form) }}
+                        {% endif %}
+                    {% else %}
+                        <p> Vous ne pouvez pas votre voyage ne sera pas complet</p>
+                    {% endif %}
+            </div>
         </div>
-        <div class="col">
+
+
+
+        <div class="col-6">
             <div class="alert alert-light">
                 <h2 class="alert-heading">
                     votre hébergement
