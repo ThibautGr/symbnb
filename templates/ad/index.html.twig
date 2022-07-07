@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends '/base.html.twig' %}
 
 {% block title %}Nos annonces{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1 class="my-3">nos annonces</h1>
+        <h1 class="my-3">nos annonces <i class="fa-solid fa-star-half-stroke"></i></h1>
         <div class="row">
             {% for ad in allAds %}
                 {% include 'ad/_ad.html.twig' %}

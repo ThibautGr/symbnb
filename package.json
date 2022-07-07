@@ -5,7 +5,10 @@
         "@symfony/webpack-encore": "^1.7.0",
         "core-js": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
+        "sass": "^1.53.0",
+        "sass-loader": "^13.0.0",
         "vanillajs-datepicker": "^1.2.0",
+        "webpack": "^5.73.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -15,5 +18,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "node-sass": "^7.0.1"
     }
 }

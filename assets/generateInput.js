@@ -2,7 +2,6 @@ $("#add-image").click(function (){
 
     let index = +$('#widgets-counter').val(index +1);
     const tmpl = $('#ad_images').data('prototype').replace(/__name__/g, index);
-console.log(tmpl)
     $('#ad_images').append(tmpl);
     $('#widgets-counter').val(index + 1)
     handleDeleteButtons();

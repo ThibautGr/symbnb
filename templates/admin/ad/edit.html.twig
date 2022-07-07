@@ -1,0 +1,120 @@
+{% extends 'admin/base.html.twig' %}
+{% form_theme form _self %}
+{% block title %}Administration de l'annonce n°{{ ad.id }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-5">
+                <div class="card-head">
+                    <h2 class="my-5">Gestion de l'annonces : "{{ ad.title }}"</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="card bg-light">
+                        {{ form_widget(form) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5">
+                <div class="card-head">
+                    <h2 class="my-5">Nombre de réservation  : {{ ad.bookings | length }}</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Voyageur</th>
+                            <th> Date de réservation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for booking in ad.bookings %}
+                            <tr>
+                                <td>{{ booking.id }}</td>
+                                <td>{{ booking.booker }}</td>
+                                <td>{{ booking.createAt | date('d/m/Y H:i') }}</td>
+                                <td><a href="#" class="btn btn-primary"><i class="fas fa-pen"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-head">
+                    <h2 class="my-5">Nombre de commentaire  : {{ ad.comments | length }}</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th> Voyageur </th>
+                            <th> commentaire </th>
+                            <th> date </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in ad.comments %}
+                            <tr>
+                                <td>{{ comment.id }}</td>
+                                <td>{{ comment.author }}</td>
+                                <td>{{ comment.content }}</td>
+                                <td>{{ comment.createdAt | date('d/m/Y H:i') }}</td>
+                                <td><a href="#" class="btn btn-primary"><i class="fas fa-pen"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _ad_images_widget %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _ad_images_entry_row %}
+    <div id="_block{{ id }}">
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block _ad_images_entry_widget %}
+<div class="row align-items-center" id="block_{{id}}">
+    <div class="col-4">
+        {{ form_row(form.url) }}
+    </div>
+    <div class="col-6">
+        {{ form_widget(form.caption) }}
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-primary" data-action="delete"><i class="fa fa-trash"></i></button>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function handleDeleteButtons(){
+            const elms = document.querySelectorAll('button[data-action="delete"]');
+            let deletethis = '';
+            for (const argument of elms) {
+                argument.addEventListener('click', function (elem){
+                    if (elem.target.innerHTML !== '<i class="fa fa-trash" aria-hidden="true"></i>' ){
+                        deletethis = elem.target.parentElement.parentElement.parentElement;
+                    }
+                    else{
+                        deletethis = elem.target.parentElement.parentElement;
+                    }
+                    deletethis.remove()
+                })
+            }
+        }
+        handleDeleteButtons()
+    </script>
+{% endblock  %}

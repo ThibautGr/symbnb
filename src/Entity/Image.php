@@ -31,10 +31,15 @@ class Image
     private $caption;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ad::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=Ad::class, inversedBy="images", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $ad;
+
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
 
     public function getId(): ?int
     {

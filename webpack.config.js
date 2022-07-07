@@ -60,6 +60,16 @@ Encore
 
     // enables Sass/SCSS support
     //.enableSassLoader()
+Encore
+    .enableSassLoader()
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/build')
+    // ...
+
+    .addEntry('admin', './assets/styles/admin.scss')
+;
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

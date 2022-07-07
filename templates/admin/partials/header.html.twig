@@ -1,0 +1,73 @@
+<nav class="navbar bg-danger container-fluid d-flex">
+    <div class="mr-auto d-flex">
+        <div class="nav-item">
+            <a class="navbar-brand" href="{{ url('homepage') }}">SymBnB <span class="text-muted">Admin panel</span></a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" href="#">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" href="{{ url('admin_ads_index') }}">
+                <i class="fas fa-folder"></i>
+                Les annonces
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" href="{{ path('admin_bookings') }}">
+                <i class="fas fa-folder"></i>
+                    Les réservation
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" href="{{ path('admin_comments') }}">
+                <i class="fas fa-comments"></i>
+                Les commentaires
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link active" href="#">
+                <i class="fas fa-users"></i>
+                Les utilisateurs
+            </a>
+        </div>
+    </div>
+
+    <ul class="ml-auto d-flex">
+        <div class="nav-item">
+            <a class="nav-link active" href="{{ url('ads_index') }}">
+                <i class="fas fa-eye"></i>
+                Voir le site
+            </a>
+        </div>
+        {% if app.user %}
+            <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mon Profile
+            </a>
+            <div class="dropdown-menu pr-5 r" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{ path('profile') }}">Modifier mes informations</a>
+                <a class="dropdown-item" href="{{ path('password') }}">Modifier mon mots de passe </a>
+                <a href="{{ path('admin_account_logout') }}" class="nav-link">Déconnexion</a>
+            </div>
+        {% else %}
+            <div class="d-flex">
+                <li class="nav-bar pr-5">
+                    <a href="{{ path('account_login') }}" class="nav-link">Connexion</a>
+                </li>
+                <li class="nav-bar">
+                    <a href="{{ path('accounte_register') }}" class="nav-link">Incription</a>
+                </li>
+            </div>
+        {% endif %}
+    </ul>
+</nav>
+
+{% for label, messages in app.flashes %}
+    <div class="alert-{{ label }}">
+        {%  for message in messages %}
+            <p>{{ message | raw }}</p>
+        {%  endfor %}
+    </div>
+{% endfor %}

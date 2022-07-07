@@ -16,17 +16,29 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        secured_area:
+                pattern: ^/admin
+                provider: in_database
+
+                form_login:
+                    login_path: admin_account_login
+                    check_path: admin_account_login
+                    default_target_path: admin_ads_index
+
+                logout:
+                    path: admin_account_logout
+                    target: admin_account_login
         main:
             lazy: true
             provider: in_database
 
             form_login:
-                login_path: "account_login"
-                check_path: "account_login"
+                login_path: account_login
+                check_path: account_login
 
             logout:
-                path: "account_logout"
-                target: "account_login"
+                path: account_logout
+                target: account_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -37,7 +49,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

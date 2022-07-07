@@ -109,6 +109,12 @@ class User implements UserInterface
         }
     }
 
+
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
+
     public function __construct()
     {
         $this->ads = new ArrayCollection();

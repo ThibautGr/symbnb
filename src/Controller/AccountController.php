@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Config\Security\PasswordHasherConfig;
 
 class AccountController extends AbstractController
 {
@@ -100,7 +99,6 @@ class AccountController extends AbstractController
             'Vos données ont bien été mise à jours'
             );
         }
-
         return $this->render('account/profile.html.twig',[
             'form' => $form->createView()
         ]);
@@ -131,7 +129,6 @@ class AccountController extends AbstractController
             else{
                 $newPassword = $pwdUpdate->getNewPwd();
                 $hash = $hasher->hashPassword($user, $newPassword);
-
                 $user->setHash($hash);
                 $emi->persist($user);
                 $emi->flush();

@@ -22,15 +22,11 @@ class BookingController extends AbstractController
      */
     public function create(Ad $ad, Request $request, EntityManagerInterface $emi): Response
     {
-
         $booking = new Booking();
-
         $form = $this->createForm(BookingFormType::class, $booking);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $booking->setBooker($this->getUser())->setAd($ad);
-
             // si les dates ne sont pas disponible, return error
             if (!$booking->isBookableDates()){
                 $this->addFlash('warning', 'les dates que vous avez choisie sont déjà prises');
@@ -51,7 +47,6 @@ class BookingController extends AbstractController
         ]);
     }
 
-
     /**
      *
      * @Route("booking/{id}", name="booking_show")
@@ -63,25 +58,23 @@ class BookingController extends AbstractController
     public function show(Booking $booking, Request $request, EntityManagerInterface $emi){
 
         $comment = new Comment();
-
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ( $form->isSubmitted() and $form->isValid())
         {
             $comment->setAd($booking->getAd());
             $comment->setAuthor($this->getUser());
-
             $emi->persist($comment);
             $emi->flush();
-
             $this->addFlash('success', 'Votre note et commentaire on bien été ajouter');
         }
 
         return $this->render('booking/show.html.twig',[
-            'booking'=> $booking,
+                'booking'=> $booking,
                 'form'=> $form->createView()
             ]
         );
     }
+
 
 }
