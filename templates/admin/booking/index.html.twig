@@ -33,11 +33,10 @@
                         <a href="{{ path('admin_booking_delete',{'id':booking.id}) }}" class="m-lg-1 btn btn-primary"><i class=" fas fa-trash"></i></a>
                     </td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>
-
+        {% include 'admin/partials/_pagination.html.twig' with {'route':'admin_bookings'}  %}
     </div>
 
 {% endblock %}

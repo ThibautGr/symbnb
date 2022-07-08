@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
-use App\Entity\Comment;
-use App\Entity\Image;
 use App\Form\AdType;
-use App\Repository\AdRepository;
-use App\Repository\CommentRepository;
+use App\Services\PagniationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,13 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route ("/admin/ads", name="admin_ads_index")
+     * @Route ("/admin/ads/{page}", name="admin_ads_index", requirements={"page": "\d+"})
      * @return Response
      */
-    public function index(AdRepository $ar): Response
+    public function index(PagniationService $ps, $page = 1): Response
     {
+        $ps->setPage(intval($page));
+        $ps->setEntityClass(Ad::class);
+
         return $this->render('admin/ad/index.html.twig', [
-            'ads' => $ar->findAll()
+            'ads' => $ps->getData(),
+            'nbPage'=> intval(round($ps->getNbpage())),
+            'page' => $ps->getPage()
         ]);
     }
 
@@ -33,8 +35,8 @@ class AdminAdController extends AbstractController
      * @return Response
      */
     public function edit(Ad $ad, Request $request,EntityManagerInterface $emi){
-        $form = $this->createForm(AdType::class, $ad);
 
+        $form = $this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()){

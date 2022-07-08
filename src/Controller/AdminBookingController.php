@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Ad;
 use App\Entity\Booking;
 use App\Form\AdminBookinType;
-use App\Form\BookingFormType;
 use App\Repository\BookingRepository;
 use App\Repository\CommentRepository;
+use App\Services\PagniationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminBookingController extends AbstractController
 {
     /**
-     * @Route ("admin/bookins", name="admin_bookings")
+     * @Route ("admin/bookins/{page}", name="admin_bookings")
      * @param CommentRepository $cr
      * @return Response
      */
-    public function index(BookingRepository $br){
-        return $this->render('admin/booking/index.html.twig', ['bookings' => $br->findAll()]);
-    }
+    public function index(PagniationService $ps, $page = 1): Response
+    {
+        $ps->setPage(intval($page));
+        $ps->setEntityClass(Booking::class);
 
+        return $this->render('admin/booking/index.html.twig', [
+            'bookings' => $ps->getData(),
+            'nbPage'=> intval(round($ps->getNbpage())),
+            'page' => $ps->getPage()
+        ]);
+    }
 
     /**
      * @Route("admin/booking/edit/{id}", name="admin_bookings_edit")

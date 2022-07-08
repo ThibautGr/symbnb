@@ -6,18 +6,16 @@
 
     <div class="container-fluid">
         <h1 class="my-5">Gestion des annonces</h1>
-
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>id</th>
-                <th>Titre</th>
-                <th>Réservation</th>
-                <th>note</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Réservation</th>
+                    <th>note</th>
+                    <th>Action</th>
+                </tr>
             </thead>
-
             <tbody>
             {% for ad in ads %}
                 <tr>
@@ -31,11 +29,10 @@
                         <a href="{{ path('admin_ad_delete',{'id':ad.id}) }}" class="btn btn-primary"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>
-
+        {% include 'admin/partials/_pagination.html.twig' with {'route':'admin_ads_index'}  %}
     </div>
 
 {% endblock %}

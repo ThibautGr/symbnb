@@ -1,0 +1,11 @@
+<div class="btn-toolbar d-flex justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+    <a  href="{{ path(route,{'page': page - 1 }) }}" class="btn btn-secondary"><</a>
+    {% for i in 1..nbPage %}
+        {% if app.request.uri== url(route,{'page': i }) %}
+            <a  href="{{ path(route,{'page': i }) }}" class="btn btn-primary">{{ i }}</a>
+        {% else %}
+            <a  href="{{ path(route,{'page': i }) }}" class="btn btn-secondary">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+    <a  href="{{ path(route,{'page': page +1 }) }}" class="btn btn-secondary"> > </a>
+</div>

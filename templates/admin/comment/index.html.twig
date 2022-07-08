@@ -6,7 +6,6 @@
 
     <div class="container-fluid">
         <h1 class="my-5">Gestion des commentaires</h1>
-
         <table class="table table-hover">
             <thead>
             <tr>
@@ -17,7 +16,6 @@
                 <th>Action</th>
             </tr>
             </thead>
-
             <tbody>
             {% for comment in comments %}
                 <tr>
@@ -31,11 +29,10 @@
                         <a href="{{ path('admin_remove_comment',{'id':comment.id}) }}" class="m-lg-1 btn btn-primary"><i class=" fas fa-trash"></i></a>
                     </td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>
-
+        {% include 'admin/partials/_pagination.html.twig' with {'route':'admin_comments'}  %}
     </div>
 
 {% endblock %}
