@@ -24,11 +24,12 @@ Encore
     .addEntry('generateInput', './assets/generateInput.js')
     .addEntry('dataCalendar', './assets/datacalenda.js')
     .addEntry('bootsswach', './assets/styles/bootstrap.min.css')
+    .addEntry('appcss', './assets/styles/app.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimiza tion.
     .splitEntryChunks()
 
     // will require an extra script tag for runtime.js
@@ -59,8 +60,8 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
-Encore
+    // .enableSassLoader()
+
     .enableSassLoader()
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')

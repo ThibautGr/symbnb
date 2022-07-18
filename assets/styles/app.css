@@ -1,35 +1,35 @@
-div.container{
-    margin-top: 20px;
+div.container {
+  margin-top: 20px;
 }
 
-.ad-titlee{
-    padding: 2em;
-    background-size: cover ;
-    background-position: center center;
+.ad-titlee {
+  padding: 2em;
+  background-size: cover;
+  background-position: center center;
 }
 
-
-div.ad-title h1, div.ad-title p{
-    color: white;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+div.ad-title h1, div.ad-title p {
+  color: white;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
-.avatar{
-    max-width: 128px;
-    max-height: 128px;
-    border-radius: 50%;
+.avatar {
+  max-width: 128px;
+  max-height: 128px;
+  border-radius: 50%;
 }
 
-.avatar-medium{
-    max-height: 64px;
-    max-width: 64px;
+.avatar-medium {
+  max-height: 64px;
+  max-width: 64px;
 }
 
-.datepicker-cell .day .disabled{
-    color: firebrick !important;
+.datepicker-cell .day .disabled {
+  color: firebrick !important;
 }
-
 
 span.rating i {
-    color : goldenrod;
+  color: goldenrod;
 }
+
+/*# sourceMappingURL=app.css.map */
